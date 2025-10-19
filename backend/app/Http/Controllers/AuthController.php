@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,5 +34,19 @@ class AuthController extends Controller
 
         return response()->json($fields);
 
+    }
+    public function login(Request $request){
+
+        if(!Auth::attempt($request->only('email','password'))){
+            return response([
+                'message' => 'Invalid login details'
+            ], 401);
+        }
+        $user =Auth::user();
+         $fields ['firstname'] = $user -> firstname;
+        $fields ['surname'] = $user -> surname;
+        $fields ['email'] = $user -> email;
+        $fields ['token'] = $user->createToken('App')->plainTextToken;
+        return response()->json($fields);
     }
 }
