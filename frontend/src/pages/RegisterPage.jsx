@@ -28,6 +28,7 @@ const RegisterPage = () => {
       console.log("Registered successful:", response.data);
       localStorage.setItem("user", JSON.stringify(response.data));
       localStorage.setItem("isAuthenticated", "true");
+      navigate("/tweetfeed");
     } catch (error) {
       setIsLoading(false);
 

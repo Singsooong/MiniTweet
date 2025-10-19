@@ -32,7 +32,7 @@ const LoginPage = () => {
       localStorage.setItem("user", JSON.stringify(response.data));
       localStorage.setItem("isAuthenticated", "true");
 
-      navigate("/dashboard");
+      navigate("/tweetfeed");
     } catch (error) {
       setIsLoading(false);
 
