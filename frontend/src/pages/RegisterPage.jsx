@@ -25,7 +25,6 @@ const RegisterPage = () => {
     setIsLoading(true);
     try {
       await registerUser(data);
-      navigate("/login");
     } catch (error) {
       setIsLoading(false);
 
