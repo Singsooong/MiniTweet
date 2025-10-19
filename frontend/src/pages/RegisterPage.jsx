@@ -24,7 +24,10 @@ const RegisterPage = () => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      await registerUser(data);
+      const response = await registerUser(data);
+      console.log("Registered successful:", response.data);
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("isAuthenticated", "true");
     } catch (error) {
       setIsLoading(false);
 
