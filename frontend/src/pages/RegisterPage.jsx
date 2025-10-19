@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { registerUser } from "../services/authServices";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -9,25 +10,42 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
+    setError,
   } = useForm({
     defaultValues: {
-      first_name: "",
+      firstname: "",
       surname: "",
       email: "",
       password: "",
     },
-    mode: "onChange", // Validate on change for better UX
+    mode: "onChange",
   });
 
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      //   await registerUser(data);
+      await registerUser(data);
       navigate("/login");
     } catch (error) {
-      console.error("Registration failed:", error);
       setIsLoading(false);
+
+      // Handle backend validation errors
+      if (error.response?.data?.errors) {
+        const backendErrors = error.response.data.errors;
+
+        // Map backend errors to form fields
+        Object.keys(backendErrors).forEach((field) => {
+          setError(field, {
+            type: "server",
+            message: backendErrors[field],
+          });
+        });
+      } else if (error.response?.data?.message) {
+        // Handle general error message
+        console.error("Registration failed:", error.response.data.message);
+      } else {
+        console.error("Registration failed:", error.message);
+      }
     }
   };
 
@@ -49,7 +67,7 @@ const RegisterPage = () => {
               <input
                 type="text"
                 placeholder="Firstname"
-                {...register("first_name", {
+                {...register("firstname", {
                   required: "Firstname is required",
                   minLength: {
                     value: 2,
