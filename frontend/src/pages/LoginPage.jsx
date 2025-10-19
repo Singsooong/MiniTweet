@@ -26,8 +26,12 @@ const LoginPage = () => {
 
     try {
       const response = await loginUser(data);
-      console.log("Login successful:", response.data);
+
       // Assuming successful login
+      console.log("Login successful:", response.data);
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("isAuthenticated", "true");
+
       navigate("/dashboard");
     } catch (error) {
       setIsLoading(false);
