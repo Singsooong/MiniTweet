@@ -70,34 +70,28 @@ composer install
 Copy .env.example to .env and configure your MySQL database.
 
 bash
-Copy code
 cp .env.example .env
 Install Laravel API with Sanctum (2025 modern setup):
 
 bash
-Copy code
 php artisan install:api
 Run migrations:
 
 bash
-Copy code
 php artisan migrate
 Start backend server:
 
 bash
-Copy code
 php artisan serve
 Frontend (React + Vite + Tailwind)
 Install dependencies:
 
 bash
-Copy code
 cd front
 npm install
 Start frontend server:
 
 bash
-Copy code
 npm run dev
 Make sure the backend server is running at http://localhost:8000.
 
@@ -106,7 +100,6 @@ Backend (PEST)
 Run PEST tests:
 
 bash
-Copy code
 php artisan test
 Tests include user registration/login, tweet creation, and like/unlike flows.
 
@@ -116,7 +109,6 @@ Frontend (Vitest)
 Run Vitest:
 
 bash
-Copy code
 npm run test
 Tests include registration, login, tweet posting, feed rendering, and like/unlike functionality.
 
@@ -124,7 +116,6 @@ Tests include registration, login, tweet posting, feed rendering, and like/unlik
 Conventional commits used for each feature/fix:
 
 makefile
-Copy code
 feat: add user registration API
 fix: correct tweet model relationship
 style: setup Tailwind config
