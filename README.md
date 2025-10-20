@@ -62,33 +62,33 @@ minitweetui/
 
 1. Install dependencies:
 
-bash
+
 composer install
 Copy .env.example to .env and configure your MySQL database.
 
-bash
+
 cp .env.example .env
 Install Laravel API with Sanctum (2025 modern setup):
 
-bash
+
 php artisan install:api
 Run migrations:
 
-bash
+
 php artisan migrate
 Start backend server:
 
-bash
+
 php artisan serve
 Frontend (React + Vite + Tailwind)
 Install dependencies:
 
-bash
+
 cd front
 npm install
 Start frontend server:
 
-bash
+
 npm run dev
 Make sure the backend server is running at http://localhost:8000.
 
@@ -98,7 +98,7 @@ Make sure the backend server is running at http://localhost:8000.
 Backend (PEST)
 Run PEST tests:
 
-bash
+
 php artisan test
 Tests include user registration/login, tweet creation, and like/unlike flows.
 
@@ -107,7 +107,7 @@ Ensures API returns correct JSON and enforces authentication rules.
 Frontend (Vitest)
 Run Vitest:
 
-bash
+
 npm run test
 Tests include registration, login, tweet posting, feed rendering, and like/unlike functionality.
 
