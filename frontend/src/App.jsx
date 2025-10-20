@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import TweetFeed from "./pages/TweetFeed";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/tweetfeed" element={<TweetFeed />} />
         </Routes>
       </Router>
     </>
