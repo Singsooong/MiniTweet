@@ -36,7 +36,7 @@ const PostCard = ({ post }) => {
   };
 
   return (
-    <div className="bg-white py-6 px-7 rounded-3xl shadow-md border border-gray-100">
+    <div className="bg-white py-6 px-7 rounded-3xl shadow-2xs border border-gray-100">
       <div className="flex items-center space-x-3 mb-2">
         <Avatar src={avatarSrc} alt={username} size="default" />
         <div className="flex flex-col">

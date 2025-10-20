@@ -62,7 +62,7 @@ const LoginPage = () => {
       <FullPageLoader loading={loading} />
       <div className="min-h-screen flex items-center justify-center font-poppins">
         <div className="w-full max-w-md">
-          <div className="bg-white">
+          <div className="bg-[#fafafc]">
             {/* Header */}
             <div className="text-center mb-8">
               <h1 className="text-3xl font-extrabold text-gray-900 mb-2">

@@ -30,26 +30,26 @@ const TweetComposer = ({ onPost }) => {
     }
   };
   return (
-    <div className="bg-white p-4 rounded-3xl shadow-md mb-6">
+    <div className="bg-white py-6 px-7 rounded-3xl shadow-2xs mb-6 border border-gray-100">
       <div className="flex space-x-3 items-start">
         <Avatar src={composerAvatar} alt="Composer Avatar" />
         <div className="flex-1">
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="w-full h-25 text-md resize-none outline-none placeholder-gray-500 bg-gray-200 rounded-md py-3 px-4"
+            className="w-full h-25 text-md resize-none outline-none placeholder-gray-500 bg-[#12141917] rounded-md py-3 px-4"
             placeholder="What's happening?"
           ></textarea>
         </div>
       </div>
-      <div className="flex justify-between items-center pt-3">
-        <p className="text-xs text-gray-500 mr-4">
+      <div className="flex justify-between items-center pt-1">
+        <p className="text-xs text-gray-500 ml-12">
           {250 - content.length} characters remaining
         </p>
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className={`flex items-center px-4 py-2 bg-black text-white font-semibold text-sm rounded-full hover:bg-gray-800 transition duration-150 ${
+          className={`flex items-center px-4 py-2 bg-black text-white font-semibold text-sm rounded-md hover:bg-gray-800 transition duration-150 ${
             loading ? "opacity-60 cursor-not-allowed" : ""
           }`}
         >

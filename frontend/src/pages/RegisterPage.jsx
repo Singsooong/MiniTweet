@@ -68,12 +68,12 @@ const RegisterPage = () => {
                     },
                   })}
                   className={`w-full h-[50px] rounded-2xl px-4 bg-gray-200 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 ${
-                    errors.first_name ? "ring-2 ring-red-500" : ""
+                    errors.firstname ? "ring-2 ring-red-500" : ""
                   }`}
                 />
-                {errors.first_name && (
+                {errors.firstname && (
                   <p className="text-red-500 text-xs mt-1 ml-2">
-                    {errors.first_name.message}
+                    {errors.firstname.message}
                   </p>
                 )}
               </div>
