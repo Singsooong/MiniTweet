@@ -92,6 +92,8 @@ bash
 npm run dev
 Make sure the backend server is running at http://localhost:8000.
 
+
+
 🧪 Testing
 Backend (PEST)
 Run PEST tests:
@@ -109,6 +111,8 @@ bash
 npm run test
 Tests include registration, login, tweet posting, feed rendering, and like/unlike functionality.
 
+
+
 📌 Conventions
 Conventional commits used for each feature/fix:
 
@@ -123,6 +127,7 @@ Backend is strictly API only, no Blade templates or Inertia.
 
 Frontend uses React functional components + hooks only.
 
+
 🔑 Notes
 All authentication is handled via Laravel Sanctum SPA authentication.
 
@@ -132,10 +137,14 @@ Follow the folder structure for modularity and clarity.
 
 Use npm run dev and php artisan serve in separate terminals for local development.
 
+
+
 🎨 Figma Design
 Login, registration, and tweet feed designs are based on the attached Figma files.
 
 Frontend layout uses Tailwind CSS for modern responsive styling.
+
+
 
 ✅ Final Deliverables
 Fully working Laravel API with Sanctum authentication
