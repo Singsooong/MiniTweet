@@ -44,7 +44,9 @@ const PostCard = ({ post }) => {
           <span className="text-gray-500 text-xs">{time}</span>
         </div>
       </div>
-      <p className="text-gray-700 leading-relaxed mt-4">{content}</p>
+      <p className="text-gray-700 leading-relaxed mt-4 break-words whitespace-pre-wrap">
+        {content}
+      </p>
 
       <div className="flex items-center mt-6 space-x-2">
         {<Heart isActive={liked} onClick={handleLike} animationScale={1.25} />}
