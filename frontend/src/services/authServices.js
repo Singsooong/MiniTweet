@@ -19,9 +19,7 @@ api.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-// export const registerUser = (data) => api.post("/register", data);
-// export const loginUser = (data) => api.post("/login", data);
-// export const logoutUser = () => api.post("/logout");
+
 export const authAPI = {
   registerUser: (data) => api.post("/register", data),
   loginUser: (data) => api.post("/login", data),
@@ -29,5 +27,5 @@ export const authAPI = {
 };
 export const tweetAPI = {
   getAllTweets: () => api.get("/tweets"),
-  createTweet: (body) => api.post("/tweets", { body }),
+  createTweet: (data) => api.post("/tweets", data),
 };

@@ -1,36 +1,29 @@
 import React, { useState } from "react";
 import Avatar from "./Avatar";
-
-const TweetComposer = () => {
-  const composerAvatar = "https://via.placeholder.com/150/0000FF/808080?text=U";
+import axios from "axios";
+import { tweetAPI } from "../services/authServices";
+const TweetComposer = ({ onPost }) => {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const composerAvatar = "https://via.placeholder.com/150/0000FF/808080?text=U";
+
   const handleSubmit = async () => {
     if (!content.trim()) return;
-
     setLoading(true);
+
     try {
-      const response = await fetch("http://localhost:8000/api/tweets", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // Optional: include token if your Laravel API is protected
-          // "Authorization": `Bearer ${yourAuthToken}`
-        },
-        body: JSON.stringify({ content }),
-      });
+      const response = await tweetAPI.createTweet({ content });
 
-      const data = await response.json();
+      console.log("Tweet response:", response.data);
 
-      // If your Laravel API returns the created tweet
-      if (data.success && data.tweet) {
-        onPost(data.tweet);
+      if (response.data.success && response.data.tweet) {
+        onPost(response.data.tweet);
         setContent("");
       } else {
-        console.error("Unexpected response format:", data);
+        console.error("Unexpected response:", response.data);
       }
     } catch (error) {
-      console.error("Error posting tweet:", error);
+      console.error("Error posting tweet:", error.response?.data || error);
     } finally {
       setLoading(false);
     }

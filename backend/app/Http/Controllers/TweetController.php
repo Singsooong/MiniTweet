@@ -43,6 +43,7 @@ class TweetController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Tweet created successfully',
+            'tweet' => $tweet->load('owner'),
         ], 201);
     }
 }
