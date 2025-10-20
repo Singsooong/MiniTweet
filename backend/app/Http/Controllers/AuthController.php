@@ -17,9 +17,14 @@ class AuthController extends Controller
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string'
         ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()->all()]);
-        }
+       if ($validator->fails()) {
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed.',
+            'errors'  => $validator->errors(), // ✅
+        ], 422);
+    }
         $user = User::create([
             'firstname' => $request['firstname'],
             'surname' => $request['surname'],

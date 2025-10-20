@@ -30,22 +30,14 @@ const RegisterPage = () => {
     } catch (error) {
       setIsLoading(false);
 
-      // Handle backend validation errors
       if (error.response?.data?.errors) {
         const backendErrors = error.response.data.errors;
-
-        // Map backend errors to form fields
         Object.keys(backendErrors).forEach((field) => {
           setError(field, {
             type: "server",
-            message: backendErrors[field],
+            message: backendErrors[field][0],
           });
         });
-      } else if (error.response?.data?.message) {
-        // Handle general error message
-        console.error("Registration failed:", error.response.data.message);
-      } else {
-        console.error("Registration failed:", error.message);
       }
     }
   };

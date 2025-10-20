@@ -38,9 +38,21 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await authAPI.registerUser(credentials);
-      setUser(response.data.user);
-      setToken(response.data.token);
-      return response.data;
+
+      if (response.data.success) {
+        setUser(response.data.user);
+        setToken(response.data.token);
+        return response.data; // proceed
+      } else {
+        throw {
+          response: {
+            data: {
+              message: response.data.message || "Registration failed",
+              errors: response.data.errors || {},
+            },
+          },
+        };
+      }
     } catch (error) {
       throw error;
     } finally {
