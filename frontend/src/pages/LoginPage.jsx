@@ -62,13 +62,13 @@ const LoginPage = () => {
       <FullPageLoader loading={loading} />
       <div className="min-h-screen flex items-center justify-center font-poppins">
         <div className="w-full max-w-md">
-          <div className="bg-white px-8 py-10">
+          <div className="bg-white">
             {/* Header */}
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-extrabold text-gray-900 mb-2">
+              <h1 className="text-3xl font-extrabold text-gray-900 mb-2">
                 Welcome to MiniTweet
               </h1>
-              <p className="text-sm text-gray-600">
+              <p className="text-md font-normal text-black">
                 Connect with friends in 20 characters or less
               </p>
             </div>
@@ -94,7 +94,7 @@ const LoginPage = () => {
                       message: "Email  must be at least 2 characters",
                     },
                   })}
-                  className={`w-full px-4 py-3 bg-gray-100 border-0 rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
+                  className={`w-full px-4 py-3 bg-gray-200 border-0 rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
                     errors.email
                       ? "focus:ring-red-500 ring-2 ring-red-500"
                       : "focus:ring-blue-500"
@@ -119,7 +119,7 @@ const LoginPage = () => {
                       message: "Password must be at least 6 characters",
                     },
                   })}
-                  className={`w-full px-4 py-3 bg-gray-100 border-0 rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
+                  className={`w-full px-4 py-3 bg-gray-200 border-0 rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
                     errors.password
                       ? "focus:ring-red-500 ring-2 ring-red-500"
                       : "focus:ring-blue-500"
@@ -147,7 +147,7 @@ const LoginPage = () => {
               <button
                 type="button"
                 onClick={handleCreateAccount}
-                className="text-sm text-gray-600 hover:text-gray-900 transition-colors border-2 border-gray-300 w-full p-2 rounded-2xl h-[50px] cursor-pointer"
+                className="text-sm text-black font-semibold hover:text-gray-900 transition-colors border-2 border-gray-300 w-full p-2 rounded-2xl h-[50px] cursor-pointer"
               >
                 Create Account
               </button>
