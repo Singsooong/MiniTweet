@@ -5,7 +5,7 @@ import { tweetAPI } from "../services/authServices";
 
 const PostCard = ({ post }) => {
   const [likes, setLikes] = useState(post.likes || 0);
-  const [liked, setLiked] = useState(post.liked_by_auth_user || false);
+  const [liked, setLiked] = useState(post.liked_by_user || false);
 
   const username = post.owner?.email || "Unknown";
   const time = new Date(post.created_at).toLocaleString();

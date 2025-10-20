@@ -12,14 +12,30 @@ class TweetController extends Controller
     //Get all tweets
     public function index()
     {
-       $tweets = Tweet::with('owner:id,email')
-            ->latest()
-            ->get();
+    //    $tweets = Tweet::with('owner:id,email')
+    //         ->latest()
+    //         ->get();
 
-        return response()->json([
-            'success' => true,
-            'tweets' => $tweets
-        ], 200);
+    //     return response()->json([
+    //         'success' => true,
+    //         'tweets' => $tweets
+    //     ], 200);
+
+
+         $user = Auth::user();
+
+    $tweets = Tweet::with('owner:id,email')
+        ->withCount('likedByUsers')
+        ->get()
+        ->map(function ($tweet) use ($user) {
+            $tweet->liked_by_user = $user ? $tweet->likedByUsers->contains($user->id) : false;
+            return $tweet;
+        });
+
+    return response()->json([
+        'success' => true,
+        'tweets' => $tweets,
+    ]);
     }
     //Create a tweet
     public function store(Request $request)

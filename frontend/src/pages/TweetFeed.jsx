@@ -48,7 +48,11 @@ const TweetFeed = () => {
         ) : (
           <div className="space-y-4">
             {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
+              <PostCard
+                key={post.id}
+                post={post}
+                likedByUser={post.liked_by_user}
+              />
             ))}
           </div>
         )}
