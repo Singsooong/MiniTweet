@@ -96,12 +96,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    setLoading(true);
     try {
-      await authAPI.logout();
+      await authAPI.logoutUser();
     } catch (error) {
       console.error("Logout error:", error);
     } finally {
       setUser(null);
+      setLoading(false);
       setToken(null);
       localStorage.removeItem("user");
       localStorage.removeItem("token");
