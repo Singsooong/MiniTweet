@@ -12,19 +12,9 @@ class TweetController extends Controller
     //Get all tweets
     public function index()
     {
-    //    $tweets = Tweet::with('owner:id,email')
-    //         ->latest()
-    //         ->get();
+       $user = Auth::user();
 
-    //     return response()->json([
-    //         'success' => true,
-    //         'tweets' => $tweets
-    //     ], 200);
-
-
-         $user = Auth::user();
-
-    $tweets = Tweet::with('owner:id,email')
+    $tweets = Tweet::with('owner:id,email,firstname')
         ->withCount('likedByUsers')
         ->get()
         ->map(function ($tweet) use ($user) {
