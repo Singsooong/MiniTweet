@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 const Header = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const userAvatar = `https://ui-avatars.com/api/?name=${user?.user?.firstname}&background=random`;
+  const userAvatar = `https://ui-avatars.com/api/?name=${user?.firstname}&background=random`;
 
   const handleLogout = async () => {
     if (!window.confirm("Are you sure you want to log out?")) return;
@@ -22,13 +22,15 @@ const Header = () => {
       navigate("/login");
     }
   };
-  console.log(user);
+
   return (
     <header className=" text-black">
       <div className="px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         {/* Left Side: Logo/Title */}
         <div className="flex items-center space-x-4">
-          <h1 className="text-2xl font-bold ml-2">MiniTweet</h1>
+          <h1 className="text-2xl font-bold ml-2">
+            MiniTweet {user?.user?.firstname}
+          </h1>
         </div>
 
         {/* Right Side: User Menu & Logout */}

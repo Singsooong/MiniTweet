@@ -1,46 +1,64 @@
-// src/context/AuthContext.js
 import { createContext, useState, useContext, useEffect } from "react";
 import { authAPI } from "../services/authServices";
 
 const AuthContext = createContext();
-
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(false);
 
+  // Store token & user in localStorage
   useEffect(() => {
     if (token) {
       localStorage.setItem("token", token);
-
-      // Fetch user if not already loaded
-      if (!user) {
-        (async () => {
-          try {
-            const response = await authAPI.getCurrentUser();
-            setUser(response.data);
-          } catch (error) {
-            console.error("Failed to fetch user:", error);
-            setToken(null);
-            localStorage.removeItem("token");
-          }
-        })();
-      }
     } else {
       localStorage.removeItem("token");
-      setUser(null);
     }
+  }, [token]);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
+  }, [user]);
+
+  // Fetch current user if token exists but no user yet (after refresh)
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (token && !user) {
+        try {
+          const response = await authAPI.getCurrentUser();
+          setUser(response.data);
+        } catch (error) {
+          console.error("Failed to fetch user:", error);
+          setToken(null);
+          localStorage.removeItem("token");
+        }
+      }
+    };
+    fetchUser();
   }, [token]);
 
   const login = async (credentials) => {
     setLoading(true);
     try {
       const response = await authAPI.loginUser(credentials);
-      console.log(response.data);
-      setUser(response.data.user);
-      setToken(response.data.token);
+      const { user, token } = response.data;
+
+      // Set immediately so components update instantly
+      setUser(user);
+      setToken(token);
+
+      // Persist to localStorage immediately
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
+
       return response.data;
     } catch (error) {
       throw error;
@@ -53,11 +71,13 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await authAPI.registerUser(credentials);
-
       if (response.data.success) {
-        setUser(response.data.user);
-        setToken(response.data.token);
-        return response.data; // proceed
+        const { user, token } = response.data;
+        setUser(user);
+        setToken(token);
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", token);
+        return response.data;
       } else {
         throw {
           response: {
@@ -83,6 +103,8 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setUser(null);
       setToken(null);
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
     }
   };
 

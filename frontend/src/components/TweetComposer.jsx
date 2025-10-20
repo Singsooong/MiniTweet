@@ -6,7 +6,7 @@ const TweetComposer = ({ onPost }) => {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const composerAvatar = `https://ui-avatars.com/api/?name=${user?.user?.firstname}&background=random`;
+  const composerAvatar = `https://ui-avatars.com/api/?name=${user?.firstname}&background=random`;
 
   const handleSubmit = async () => {
     if (!content.trim()) return;
