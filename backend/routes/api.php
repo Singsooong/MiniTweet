@@ -17,5 +17,6 @@ Route::middleware('auth:sanctum')->group(function () {
    Route::resource('tweets', TweetController::class);
     Route::post('/tweets/{tweet}/like', [TweetController::class, 'toggleLike']);
    Route::post('/logout', [AuthController::class, 'logout']);
+   Route::get('/me', [AuthController::class, 'me']);
 });
 

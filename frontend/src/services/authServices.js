@@ -24,6 +24,7 @@ export const authAPI = {
   registerUser: (data) => api.post("/register", data),
   loginUser: (data) => api.post("/login", data),
   logoutUser: () => api.post("/logout"),
+  getCurrentUser: () => api.get("/me"),
 };
 export const tweetAPI = {
   getAllTweets: () => api.get("/tweets"),

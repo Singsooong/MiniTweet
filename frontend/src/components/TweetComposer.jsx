@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Avatar from "./Avatar";
-import axios from "axios";
 import { tweetAPI } from "../services/authServices";
+import { useAuth } from "../context/AuthContext";
 const TweetComposer = ({ onPost }) => {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  const composerAvatar = "https://via.placeholder.com/150/0000FF/808080?text=U";
+  const { user } = useAuth();
+  const composerAvatar = `https://ui-avatars.com/api/?name=${user?.user?.firstname}&background=random`;
 
   const handleSubmit = async () => {
     if (!content.trim()) return;

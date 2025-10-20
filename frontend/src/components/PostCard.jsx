@@ -7,7 +7,7 @@ const PostCard = ({ post }) => {
   const [likes, setLikes] = useState(post.likes || 0);
   const [liked, setLiked] = useState(post.liked_by_user || false);
 
-  const username = post.owner?.email || "Unknown";
+  const username = post.owner?.firstname || "Unknown";
   const time = new Date(post.created_at).toLocaleString();
   const content = post.content;
   const avatarSrc = `https://ui-avatars.com/api/?name=${username}&background=random`;

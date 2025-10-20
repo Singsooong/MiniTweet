@@ -2,10 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Avatar from "./Avatar";
 import { authAPI } from "../services/authServices";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
-  const userAvatar = "https://via.placeholder.com/150/0000FF/808080?text=U";
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const userAvatar = `https://ui-avatars.com/api/?name=${user?.user?.firstname}&background=random`;
 
   const handleLogout = async () => {
     if (!window.confirm("Are you sure you want to log out?")) return;
@@ -20,15 +22,12 @@ const Header = () => {
       navigate("/login");
     }
   };
-
+  console.log(user);
   return (
-    <header className="bg-black text-white">
+    <header className=" text-black">
       <div className="px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         {/* Left Side: Logo/Title */}
         <div className="flex items-center space-x-4">
-          <span className="text-xs font-semibold uppercase tracking-widest opacity-70">
-            Feed
-          </span>
           <h1 className="text-2xl font-bold ml-2">MiniTweet</h1>
         </div>
 

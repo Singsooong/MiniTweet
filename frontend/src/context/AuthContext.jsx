@@ -14,8 +14,23 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       localStorage.setItem("token", token);
+
+      // Fetch user if not already loaded
+      if (!user) {
+        (async () => {
+          try {
+            const response = await authAPI.getCurrentUser();
+            setUser(response.data);
+          } catch (error) {
+            console.error("Failed to fetch user:", error);
+            setToken(null);
+            localStorage.removeItem("token");
+          }
+        })();
+      }
     } else {
       localStorage.removeItem("token");
+      setUser(null);
     }
   }, [token]);
 
