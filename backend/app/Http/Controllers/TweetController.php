@@ -16,6 +16,7 @@ class TweetController extends Controller
 
     $tweets = Tweet::with('owner:id,email,firstname')
         ->withCount('likedByUsers')
+        ->orderBy('created_at', 'desc')
         ->get()
         ->map(function ($tweet) use ($user) {
             $tweet->liked_by_user = $user ? $tweet->likedByUsers->contains($user->id) : false;
