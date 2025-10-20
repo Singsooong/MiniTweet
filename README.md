@@ -25,6 +25,7 @@ The project demonstrates a modern 2025 approach for SPA development with **Sanct
 
 ## 🗂 Folder Structure
 
+
 minitweetui/
 ├── backend/ # Laravel 12 API
 │ ├── app/
@@ -42,10 +43,6 @@ minitweetui/
 │ └── vite.config.js
 └── README.md
 
-yaml
-Copy code
-
----
 
 ## 🎯 Features
 
