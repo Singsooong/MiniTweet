@@ -28,4 +28,5 @@ export const authAPI = {
 export const tweetAPI = {
   getAllTweets: () => api.get("/tweets"),
   createTweet: (data) => api.post("/tweets", data),
+  likeTweet: (id) => api.post(`/tweets/${id}/like`),
 };

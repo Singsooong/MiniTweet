@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tweet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class TweetController extends Controller
@@ -46,4 +47,30 @@ class TweetController extends Controller
             'tweet' => $tweet->load('owner'),
         ], 201);
     }
+    public function toggleLike($id)
+{
+    $tweet = Tweet::findOrFail($id);
+    $user = Auth::user();
+
+    // Check if user already liked the tweet
+    if ($tweet->likedByUsers()->where('user_id', $user->id)->exists()) {
+        // Unlike
+        $tweet->likedByUsers()->detach($user->id);
+        $tweet->decrement('likes');
+        $liked = false;
+    } else {
+        // Like
+        $tweet->likedByUsers()->attach($user->id);
+        $tweet->increment('likes');
+        $liked = true;
+    }
+
+    return response()->json([
+        'success' => true,
+        'liked' => $liked,
+        'likes' => $tweet->likes,
+    ]);
+}
+
+
 }

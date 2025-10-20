@@ -17,4 +17,8 @@ class Tweet extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function likedByUsers()
+{
+    return $this->belongsToMany(User::class, 'tweet_likes')->withTimestamps();
+}
 }

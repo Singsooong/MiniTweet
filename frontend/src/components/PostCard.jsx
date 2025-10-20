@@ -1,15 +1,44 @@
 // PostCard.jsx
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "./Avatar";
+import { tweetAPI } from "../services/authServices";
 
 const PostCard = ({ post }) => {
-  const username = post.owner?.email || "Unknown User";
+  const [likes, setLikes] = useState(post.likes || 0);
+  const [liked, setLiked] = useState(post.liked_by_auth_user || false);
+
+  const username = post.owner?.email || "Unknown";
   const time = new Date(post.created_at).toLocaleString();
   const content = post.content;
-  const likes = post.likes || 0;
   const avatarSrc = `https://ui-avatars.com/api/?name=${username}&background=random`;
 
-  const isLiked = likes > 30;
+  const handleLike = async () => {
+    // instant toggle
+    const prevLiked = liked;
+    const prevLikes = likes;
+
+    // optimistic UI
+    setLiked(!liked);
+    setLikes(liked ? likes - 1 : likes + 1);
+
+    try {
+      const response = await tweetAPI.likeTweet(post.id);
+      if (response.data.success) {
+        // sync with real count from backend (optional)
+        setLiked(response.data.liked);
+        setLikes(response.data.likes);
+      } else {
+        // rollback if backend says no
+        setLiked(prevLiked);
+        setLikes(prevLikes);
+      }
+    } catch (error) {
+      console.error("Error liking tweet:", error);
+      // rollback on error
+      setLiked(prevLiked);
+      setLikes(prevLikes);
+    }
+  };
 
   return (
     <div className="bg-white py-6 px-7 rounded-3xl shadow-md border border-gray-100">
@@ -24,17 +53,20 @@ const PostCard = ({ post }) => {
       <p className="text-gray-700 leading-relaxed">{content}</p>
 
       <div className="flex items-center mt-3">
-        <button className="flex items-center space-x-1 focus:outline-none">
+        <button
+          onClick={handleLike}
+          className="flex items-center space-x-1 focus:outline-none transition"
+        >
           <span
-            className={`text-lg transition-colors duration-200 ${
-              isLiked ? "text-red-500" : "text-gray-400 hover:text-red-500"
+            className={`text-lg ${
+              liked ? "text-red-500" : "text-gray-400 hover:text-red-500"
             }`}
           >
-            {isLiked ? "❤️" : "♡"}
+            {liked ? "❤️" : "♡"}
           </span>
           <span
             className={`text-sm ${
-              isLiked ? "text-red-600 font-medium" : "text-gray-600"
+              liked ? "text-red-600 font-medium" : "text-gray-600"
             }`}
           >
             {likes}
