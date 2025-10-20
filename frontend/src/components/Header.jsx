@@ -25,7 +25,7 @@ const Header = () => {
     <>
       <FullPageLoader loading={loading} />
       <header className=" text-black">
-        <div className="px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16">
           {/* Left Side: Logo/Title */}
 
           <div className="flex items-center space-x-4">

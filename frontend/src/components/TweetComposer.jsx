@@ -49,10 +49,27 @@ const TweetComposer = ({ onPost }) => {
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className={`px-4 py-2 bg-black text-white font-semibold text-sm rounded-full hover:bg-gray-800 transition duration-150 ${
+          className={`flex items-center px-4 py-2 bg-black text-white font-semibold text-sm rounded-full hover:bg-gray-800 transition duration-150 ${
             loading ? "opacity-60 cursor-not-allowed" : ""
           }`}
         >
+          {/* Paper plane icon */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-4 h-4 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 19l9 2-9-18-9 18 9-2z"
+            />
+          </svg>
+
+          {/* Button text */}
           {loading ? "Posting..." : "Tweet"}
         </button>
       </div>

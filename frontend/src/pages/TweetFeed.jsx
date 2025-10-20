@@ -33,10 +33,10 @@ const TweetFeed = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen px-8 sm:px-6 lg:px-12 ">
       <Header />
       {/* Main Feed Container */}
-      <main className="flex flex-col max-w-2xl mx-auto mt-6  w-full">
+      <main className="flex flex-col max-w-2xl mx-auto mt-6 w-full">
         {/* Tweet Composer Section */}
         <TweetComposer onPost={handleNewPost} />
 
@@ -46,7 +46,7 @@ const TweetFeed = () => {
         ) : posts.length === 0 ? (
           <p className="text-center text-gray-500 mt-4">No tweets yet.</p>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-8">
             {posts.map((post) => (
               <PostCard
                 key={post.id}
