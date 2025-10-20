@@ -8,10 +8,11 @@ import {
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import TweetFeed from "./pages/TweetFeed";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
@@ -20,7 +21,7 @@ function App() {
           <Route path="/tweetfeed" element={<TweetFeed />} />
         </Routes>
       </Router>
-    </>
+    </AuthProvider>
   );
 }
 

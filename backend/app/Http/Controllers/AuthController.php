@@ -32,7 +32,11 @@ class AuthController extends Controller
         $fields ['token'] = $user->createToken('App')->plainTextToken;
 
 
-        return response()->json($fields);
+        return response()->json([
+            'success' => true,
+            'user' => $user,
+            'token' => $fields['token']
+        ], 200);
 
     }
     public function login(Request $request){
@@ -47,7 +51,13 @@ class AuthController extends Controller
         $fields ['surname'] = $user -> surname;
         $fields ['email'] = $user -> email;
         $fields ['token'] = $user->createToken('App')->plainTextToken;
-        return response()->json($fields);
+
+        return response()->json([
+            'success' => true,
+            'user' => $user,
+            'token' => $fields['token']
+        ], 200);
+
     }
    public function logout(Request $request)
     {

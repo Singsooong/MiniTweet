@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { registerUser } from "../services/authServices";
+import { useAuth } from "../context/AuthContext";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const { loading, registerUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -24,10 +25,7 @@ const RegisterPage = () => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      const response = await registerUser(data);
-      console.log("Registered successful:", response.data);
-      localStorage.setItem("user", JSON.stringify(response.data));
-      localStorage.setItem("isAuthenticated", "true");
+      await registerUser(data);
       navigate("/tweetfeed");
     } catch (error) {
       setIsLoading(false);

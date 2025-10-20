@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { loginUser } from "../services/authServices";
+import { useAuth } from "../context/AuthContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [generalError, setGeneralError] = useState("");
+  const { login, loading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -25,13 +26,7 @@ const LoginPage = () => {
     setGeneralError("");
 
     try {
-      const response = await loginUser(data);
-
-      // Assuming successful login
-      console.log("Login successful:", response.data);
-      localStorage.setItem("user", JSON.stringify(response.data));
-      localStorage.setItem("isAuthenticated", "true");
-
+      await login(data);
       navigate("/tweetfeed");
     } catch (error) {
       setIsLoading(false);
