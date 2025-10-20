@@ -11,7 +11,7 @@ class TweetController extends Controller
     //Get all tweets
     public function index()
     {
-       $tweets = Tweet::with('owner:id,name,email')
+       $tweets = Tweet::with('owner:id,email')
             ->latest()
             ->get();
 
@@ -34,6 +34,15 @@ class TweetController extends Controller
             ], 422);
         }
 
+        $tweet = Tweet::create([
+            'content' => $request->content,
+            'user_id' => $request->user()->id,
+            'likes' => 0
+        ]);
 
+        return response()->json([
+            'success' => true,
+            'message' => 'Tweet created successfully',
+        ], 201);
     }
 }
