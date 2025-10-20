@@ -1,53 +1,57 @@
 import Header from "../components/Header";
 import TweetComposer from "../components/TweetComposer";
 import PostCard from "../components/PostCard";
-
-const mockPosts = [
-  {
-    id: 1,
-    username: "Hazel Brook",
-    time: "2h ago",
-    content:
-      "Just tried the new Gelato shop on Bleecker - Pistachio is a must! 🍦 #nycfoodie",
-    likes: 164,
-    avatarSrc: "https://via.placeholder.com/150/0000FF/FFFFFF?text=HB",
-  },
-  {
-    id: 2,
-    username: "Jamie F.",
-    time: "3h ago",
-    content:
-      "Don't miss the new exhibit at the Met! So inspiring! ✨ #artlover",
-    likes: 27,
-    avatarSrc: "https://via.placeholder.com/150/FF0000/FFFFFF?text=JF",
-  },
-  // The image shows a duplicate post, so we include it here
-  {
-    id: 3,
-    username: "Jamie F.",
-    time: "3h ago",
-    content:
-      "Don't miss the new exhibit at the Met! So inspiring! ✨ #artlover",
-    likes: 27,
-    avatarSrc: "https://via.placeholder.com/150/FF0000/FFFFFF?text=JF",
-  },
-];
+import { useEffect, useState } from "react";
+import { tweetAPI } from "../services/authServices";
 
 const TweetFeed = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTweets = async () => {
+      try {
+        const response = await tweetAPI.getAllTweets();
+
+        if (response.data.success && Array.isArray(response.data.tweets)) {
+          setPosts(response.data.tweets);
+        } else {
+          console.error("Unexpected response format:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching tweets:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTweets();
+  }, []);
+
+  const handleNewPost = (newPost) => {
+    setPosts((prev) => [newPost, ...prev]);
+  };
+
   return (
     <div className="min-h-screen">
       <Header />
       {/* Main Feed Container */}
       <main className="flex flex-col max-w-2xl mx-auto mt-6  w-full">
         {/* Tweet Composer Section */}
-        <TweetComposer />
+        <TweetComposer onPost={handleNewPost} />
 
         {/* Feed Posts */}
-        <div className="space-y-4">
-          {mockPosts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-center text-gray-500 mt-4">Loading tweets...</p>
+        ) : posts.length === 0 ? (
+          <p className="text-center text-gray-500 mt-4">No tweets yet.</p>
+        ) : (
+          <div className="space-y-4">
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
