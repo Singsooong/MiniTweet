@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
@@ -8,7 +8,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [generalError, setGeneralError] = useState("");
-  const { login, loading } = useAuth();
+  const { login, loading, token } = useAuth();
   const {
     register,
     handleSubmit,
@@ -21,7 +21,9 @@ const LoginPage = () => {
     },
     mode: "onChange",
   });
-
+  useEffect(() => {
+    if (token) navigate("/tweetfeed");
+  }, [token, navigate]);
   const onSubmit = async (data) => {
     setIsLoading(true);
     setGeneralError("");
@@ -146,6 +148,7 @@ const LoginPage = () => {
             <div className="mt-4 text-center">
               <button
                 type="button"
+                disabled={isLoading}
                 onClick={handleCreateAccount}
                 className="text-sm text-black font-semibold hover:text-gray-900 transition-colors border-2 border-gray-300 w-full p-2 rounded-2xl h-[50px] cursor-pointer"
               >
