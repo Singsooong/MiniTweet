@@ -5,12 +5,10 @@ import { AuthProvider } from "../context/AuthContext";
 import LoginPage from "../pages/LoginPage";
 import { authAPI } from "../services/authServices";
 
-// 🧠 Mock FullPageLoader (avoid actual rendering)
 vi.mock("../components/FullPageLoader", () => {
   return { default: () => null };
 });
 
-// 🧠 Mock API service
 vi.mock("../services/authServices", async () => {
   const actual = await vi.importActual("../services/authServices");
   return {
@@ -22,7 +20,6 @@ vi.mock("../services/authServices", async () => {
   };
 });
 
-// 🧠 Mock react-router-dom navigation
 const mockNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
@@ -38,7 +35,6 @@ describe("LoginPage", () => {
     vi.resetAllMocks();
   });
 
-  // ✅ 1. Successful login
   it("submits login and navigates to /tweetfeed on success", async () => {
     authAPI.loginUser.mockResolvedValue({
       data: { user: { id: 1, name: "Test" }, token: "token-xyz" },
@@ -69,7 +65,6 @@ describe("LoginPage", () => {
     });
   });
 
-  // ✅ 2. Validation errors
   it("shows validation errors when inputs are empty", async () => {
     render(
       <AuthProvider>
@@ -85,7 +80,6 @@ describe("LoginPage", () => {
     ).toBeInTheDocument();
   });
 
-  // ✅ 3. Login failure
   it("shows error message when login fails", async () => {
     authAPI.loginUser.mockRejectedValue({
       response: { data: { message: "Invalid credentials" } },
