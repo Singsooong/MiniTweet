@@ -33,7 +33,7 @@ const TweetFeed = () => {
   };
 
   return (
-    <div className="min-h-screen px-8 sm:px-6 lg:px-12 ">
+    <div className="min-h-screen ">
       <Header />
       {/* Main Feed Container */}
       <main className="flex flex-col max-w-2xl mx-auto mt-6 w-full">

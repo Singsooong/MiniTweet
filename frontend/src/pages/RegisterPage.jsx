@@ -44,7 +44,7 @@ const RegisterPage = () => {
     <>
       <FullPageLoader loading={loading} />
       <div className="min-h-screen flex items-center justify-center p-4 font-poppins">
-        <div className="w-full max-w-md p-8">
+        <div className="w-full max-w-md p-2">
           {/* Header Section */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-gray-900 mb-1">
